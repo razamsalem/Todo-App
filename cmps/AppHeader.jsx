@@ -45,7 +45,7 @@ export function AppHeader() {
                 <h3>LOGO!</h3>
             </Link>
             {user && <section className="user-info">
-                <p>{user.fullname} <span>${user.score.toLocaleString()}</span></p>
+                <p>{user.fullname} <span>${user.balance.toLocaleString()}</span></p>
                 <button onClick={onLogout}>Logout</button>
             </section>}
             {!user && <section className="user-info">

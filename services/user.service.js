@@ -44,14 +44,14 @@ function signup({ username, password, fullname }) {
 function updateBalance(diff) {
     return userService.getById(getLoggedinUser()._id)
         .then(user => {
-            if (user.score + diff < 0) return Promise.reject('No credit')
-            user.score += diff
+            if (user.balance + diff < 0) return Promise.reject('No credit')
+            user.balance += diff
             return storageService.put(STORAGE_KEY, user)
 
         })
         .then(user => {
             _setLoggedinUser(user)
-            return user.score
+            return user.balance
         })
 }
 
@@ -65,7 +65,7 @@ function getLoggedinUser() {
 }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, score: user.score }
+    const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }
