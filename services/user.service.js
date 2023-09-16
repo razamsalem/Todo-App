@@ -9,11 +9,12 @@ export const userService = {
     signup,
     getById,
     getLoggedinUser,
-    updateBalance
-    // addActivity
+    updateBalance,
+    addActivity
 }
 
 window.us = userService
+console.log(getLoggedinUser())
 
 function getById(userId) {
     return storageService.get(STORAGE_KEY, userId)
@@ -34,7 +35,7 @@ function signup({ username, password, fullname }) {
         password,
         fullname,
         balance: 10000,
-        activities: [{ txt: 'Added a Todo', at: 1523873242735 }]
+        activities: []
     }
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
@@ -64,9 +65,21 @@ function getLoggedinUser() {
 }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance }
+    const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance, activities: user.activities }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
+}
+
+function addActivity(userId, activity) {
+    return userService.getById(userId)
+        .then(user => {
+            user.activities.unshift(activity)
+            return storageService.put(STORAGE_KEY, user)
+        })
+        .then(updatedUser => {
+            _setLoggedinUser(updatedUser)
+            return updatedUser
+        })
 }
 
 // Test Data

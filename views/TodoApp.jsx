@@ -40,9 +40,10 @@ export function TodoApp() {
 
         todoService.save(todoToSave)
             .then(savedTodo => {
+                const activity = {txt: todoToSave.title, at: todoToSave.time}
+                userService.addActivity(userService.getLoggedinUser()._id, activity)
                 showSuccessMsg(`Todo added (id: ${savedTodo._id})`)
                 dispatch({ type: ADD_TODO, todo: savedTodo })
-
             })
             .catch(err => {
                 console.log('Cannot add todo', err)

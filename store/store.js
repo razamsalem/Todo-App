@@ -1,6 +1,6 @@
 import { userService } from "../services/user.service.js"
 
-const { createStore } = Redux
+const { createStore, compose } = Redux
 
 export const SET_TODOS = 'SET_TODOS'
 export const REMOVE_TODO = 'REMOVE_TODO'
@@ -12,6 +12,7 @@ export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY'
 
 export const SET_USER = 'SET_USER'
 export const SET_USER_BALANCE = 'SET_USER_BALANCE'
+export const SET_USER_PREFERENCES = 'SET_USER_PREFERENCES'
 
 /* 
  Store should manage:
@@ -59,6 +60,10 @@ function appReducer(state = initialState, action) {
         case SET_USER_BALANCE:
             const user = { ...state.loggedinUser, balance: action.balance }
             return { ...state, loggedinUser: user }
+
+        case SET_USER_PREFERENCES:
+            const updatedUser = { ...state.loggedinUser, prefs: action.prefs }
+            return { ...state, loggedinUser: updatedUser }
             
         default:
             return state
@@ -66,10 +71,7 @@ function appReducer(state = initialState, action) {
     }
 }
 
-const middleware = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() : () => { }
-
-
-export const store = createStore(appReducer, middleware)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+export const store = createStore(appReducer, composeEnhancers())
 
 window.gStore = store
