@@ -7,9 +7,9 @@ export const userService = {
     login,
     logout,
     signup,
-    // getById,
+    getById,
     getLoggedinUser,
-    // updateBalance
+    updateBalance
     // addActivity
 }
 
@@ -24,7 +24,6 @@ function login({ username, password }) {
         .then(users => {
             const user = users.find(user => user.username === username && user.password === password)
             if (user) return _setLoggedinUser(user)
-            // if (user) return _setLoggedinUser(user)
             else return Promise.reject('Invalid login')
         })
 }

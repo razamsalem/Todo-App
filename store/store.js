@@ -1,3 +1,5 @@
+import { userService } from "../services/user.service.js"
+
 const { createStore } = Redux
 
 export const SET_TODOS = 'SET_TODOS'
@@ -8,10 +10,13 @@ export const UPDATE_TODO = 'UPDATE_TODO'
 export const SET_FILTER = 'SET_FILTER'
 export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY'
 
+export const SET_USER = 'SET_USER'
+export const SET_USER_BALANCE = 'SET_USER_BALANCE'
+
 /* 
  Store should manage:
   a. List of todos V
-  b. current FilterBy X
+  b. current FilterBy V
   c. User object X
  */
 
@@ -19,6 +24,7 @@ const initialState = {
     todos: [],
     filter: 'all',
     searchQuery: '',
+    loggedinUser: userService.getLoggedinUser()
 }
 
 function appReducer(state = initialState, action) {
@@ -40,13 +46,20 @@ function appReducer(state = initialState, action) {
             return { ...state, todos }
 
         //Filter
-
         case SET_FILTER:
             return { ...state, filter: action.newFilter }
 
         case SET_SEARCH_QUERY:
             return { ...state, searchQuery: action.searchQuery }
 
+        //User
+        case SET_USER:
+            return { ...state, loggedinUser: action.user }
+
+        case SET_USER_BALANCE:
+            const user = { ...state.loggedinUser, balance: action.balance }
+            return { ...state, loggedinUser: user }
+            
         default:
             return state
 
