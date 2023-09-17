@@ -1,25 +1,89 @@
-header {
-
-    background: lightcyan;
-    border-bottom: 2px solid white;
-}
-
 .app-header {
+    background: #007bff; 
+    border-bottom: 2px solid #0056b3; 
+    padding: 20px 10px;
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    align-items: center;
+}
+
+.app-header h3 {
+    text-decoration: none;
+    color: #fff; 
+    font-size: 24px;
+    font-weight: bold; 
+    margin-right: 20px;
+}
+
+.signup-suggest-area {
+    color: #fff;
+}
+
+.user-info p {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+}
+
+.user-info button {
+    background: #fff; 
+    border: none;
+    cursor: pointer;
+    color: #007bff; 
+    font-size: 16px;
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    margin: 0 5px;
+}
+
+
+.progress-bar {
+    text-align: center;
+    padding: 10px 0;
+    color: #fff;
 }
 
 nav a {
-    margin: .5em;
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    transition: color 0.3s, border-bottom 0.3s;
+    position: relative;
+    padding-bottom: 2px;
+    padding-inline: 5px;
 }
 
 nav a:active {
-    color: purple;
+    color: #ffc107;
 }
 
 nav a.active {
-    color: darkblue;
     font-weight: bold;
-    text-decoration: overline;
+    text-decoration: none;
+    border-bottom: 2px solid #ffc107;
+}
+
+nav a:not(.active):hover {
+    color: #ffc107;
+    border-bottom: 2px solid #ffc107;
+}
+
+
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-link {
+        margin-bottom: 10px;
+    }
+
+    .user-info {
+        margin-top: 10px;
+    }
+
+    nav {
+        margin-top: 20px;
+    }
 }

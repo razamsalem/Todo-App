@@ -7,6 +7,8 @@ import { store } from './store/store.js'
 import { About } from './views/About.jsx'
 import { Home } from './views/Home.jsx'
 import { TodoApp } from './views/TodoApp.jsx'
+import { UserProfile } from './views/UserProfile.jsx'
+
 
 export function App() {
     return (
@@ -18,6 +20,7 @@ export function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/todo" element={<TodoApp />} />
+                        <Route path="/profile" element={<UserProfile />} />
                     </Routes>
                 </section>
             </Router>

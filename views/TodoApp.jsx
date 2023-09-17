@@ -15,6 +15,7 @@ export function TodoApp() {
     const todos = useSelector(storeState => storeState.todos)
     const filter = useSelector(storeState => storeState.filter)
     const searchQuery = useSelector(storeState => storeState.searchQuery)
+    const loggedinUser = useSelector((storeState) => storeState.loggedinUser)
 
 
     useEffect(() => {
@@ -37,10 +38,11 @@ export function TodoApp() {
         const todoToSave = todoService.getEmptyTodo()
 
         if (todoToSave.title === null || todoToSave.title.trim() === '') return
+        todoToSave.owner = loggedinUser.fullname
 
         todoService.save(todoToSave)
             .then(savedTodo => {
-                const activity = {txt: todoToSave.title, at: todoToSave.time}
+                const activity = { txt: todoToSave.title, at: todoToSave.time }
                 userService.addActivity(userService.getLoggedinUser()._id, activity)
                 showSuccessMsg(`Todo added (id: ${savedTodo._id})`)
                 dispatch({ type: ADD_TODO, todo: savedTodo })

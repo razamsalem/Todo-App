@@ -10,11 +10,11 @@ export const userService = {
     getById,
     getLoggedinUser,
     updateBalance,
+    updateUser,
     addActivity
 }
 
 window.us = userService
-console.log(getLoggedinUser())
 
 function getById(userId) {
     return storageService.get(STORAGE_KEY, userId)
@@ -35,8 +35,13 @@ function signup({ username, password, fullname }) {
         password,
         fullname,
         balance: 10000,
-        activities: []
+        activities: [],
+        prefs: {
+            color: '#232323',
+            bgColor: '#fff'
+        }
     }
+
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
 }
@@ -65,9 +70,20 @@ function getLoggedinUser() {
 }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance, activities: user.activities }
+    const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance, activities: user.activities, prefs: user.prefs }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
+}
+
+function updateUser(updatedUser) {
+    return storageService.put(STORAGE_KEY, updatedUser)
+        .then(() => {
+            _setLoggedinUser(updatedUser)
+            return updatedUser
+        })
+        .catch((error) => {
+            console.error('Error updating user:', error)
+        })
 }
 
 function addActivity(userId, activity) {

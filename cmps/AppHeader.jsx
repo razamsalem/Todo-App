@@ -12,12 +12,6 @@ export function AppHeader() {
     const todos = useSelector(storeState => storeState.todos)
     const [progressBarWidth, setProgressBarWidth] = useState(0)
 
-    // const [user, setUser] = useState(userService.getLoggedinUser())
-
-    // useEffect(() => {
-    //     setUser(userService.getLoggedinUser())
-    // }, [todos])
-
     useEffect(() => {
         const doneTodos = todos.filter(todo => todo.isDone)
         const totalTodos = todos.length
@@ -25,17 +19,20 @@ export function AppHeader() {
         setProgressBarWidth(percentageDone)
     }, [todos])
 
+    // if (user) {
+    //     useEffect(() => {
+    //         document.body.style.color = user.prefs.color
+    //         document.body.style.backgroundColor = user.prefs.bgColor
+    //     },[])
+    // }
 
     function onSetUser(user) {
-        // setUser(user)
         dispatch({ type: SET_USER, user })
     }
 
     function onLogout() {
-        // TODO: move to a function and use dispatch
         userService.logout()
             .then(() => {
-                // setUser(null)
                 dispatch({ type: SET_USER, user: null })
             })
     }
@@ -43,7 +40,7 @@ export function AppHeader() {
     return (
         <header className="app-header">
             <Link to="/">
-                <h3>LOGO!</h3>
+                <h3>Lets do todos!</h3>
             </Link>
             {user && <section className="user-info">
                 <p>{user.fullname} <span>${user.balance.toLocaleString()}</span></p>
@@ -64,6 +61,7 @@ export function AppHeader() {
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/about">About</NavLink>
                 <NavLink to="/todo">Todo</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
             </nav>
         </header>
     )

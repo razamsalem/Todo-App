@@ -61,10 +61,10 @@ function appReducer(state = initialState, action) {
             const user = { ...state.loggedinUser, balance: action.balance }
             return { ...state, loggedinUser: user }
 
-        case SET_USER_PREFERENCES:
-            const updatedUser = { ...state.loggedinUser, prefs: action.prefs }
-            return { ...state, loggedinUser: updatedUser }
-            
+            case SET_USER_PREFERENCES:
+                const updatedUser = { ...state.loggedinUser, prefs: action.prefs }
+                return { ...state, loggedinUser: updatedUser }
+
         default:
             return state
 

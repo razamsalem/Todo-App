@@ -78,7 +78,7 @@ export function LoginSignup({ onSetUser }) {
             </form>
 
             <div className="btns">
-                <a href="#" onClick={onToggleSignupState}>
+                <a className='signup-suggest-area' href="#" onClick={onToggleSignupState}>
                     {isSignupState ? 'Already a member? Login' : 'New user? Signup here'}
                 </a >
             </div>

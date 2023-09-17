@@ -50,6 +50,7 @@ function getEmptyTodo() {
         isDone: false,
         title: prompt('title?'),
         time: utilService.getTimeFromStamp(Date.now()),
+        owner: ''
     }
 }
 

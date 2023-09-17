@@ -1,7 +1,7 @@
 /* Setup */
 
 @import './setup/variables.css';
-/* @import './setup/fonts.css'; */
+@import './setup/fonts.css';
 
 /* Basics */
 
@@ -22,5 +22,7 @@
 @import './cmps/AppHeader.css';
 @import './cmps/TodoPreview.css';
 @import './cmps/TodoFilter.css';
+@import './cmps/TodoList.css';
+
 
 /* @import './apps/mail/cmps/MailList.css'; */
