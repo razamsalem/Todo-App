@@ -2,14 +2,14 @@ const { Link, NavLink } = ReactRouterDOM
 const { useState, useEffect } = React
 const { useSelector, useDispatch } = ReactRedux
 
-import { userService } from "../services/user.service.js"
 import { LoginSignup } from './LoginSignup.jsx'
-import { SET_USER } from '../store/store.js'
+import { logout } from "../store/actions/user.actions.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 export function AppHeader() {
     const dispatch = useDispatch()
-    const user = useSelector(storeState => storeState.loggedinUser)
-    const todos = useSelector(storeState => storeState.todos)
+    const user = useSelector(storeState => storeState.userModule.loggedinUser)
+    const todos = useSelector(storeState => storeState.todoModule.todos)
     const [progressBarWidth, setProgressBarWidth] = useState(0)
 
     useEffect(() => {
@@ -26,28 +26,28 @@ export function AppHeader() {
     //     },[])
     // }
 
-    function onSetUser(user) {
-        dispatch({ type: SET_USER, user })
-    }
-
     function onLogout() {
-        userService.logout()
+        logout()
             .then(() => {
-                dispatch({ type: SET_USER, user: null })
+                showSuccessMsg('Logged out')
             })
+            .catch(err => {
+                showErrorMsg(' Could not log out')
+                console.log(err)
+            }) 
     }
 
     return (
         <header className="app-header">
             <Link to="/">
-                <h3>Lets do todos!</h3>
+                <h3>Lets do <span className="colorize">todos</span>!</h3>
             </Link>
             {user && <section className="user-info">
                 <p>{user.fullname} <span>${user.balance.toLocaleString()}</span></p>
                 <button onClick={onLogout}>Logout</button>
             </section>}
             {!user && <section className="user-info">
-                <LoginSignup onSetUser={onSetUser} />
+                <LoginSignup/>
             </section>}
             {todos.length > 0 &&
                 <div className="progress-bar">

@@ -2,3 +2,34 @@
     background-color: #007bff;
     color: #fff;
 }
+
+.todo-filter .active:hover {
+    background-color: #0367d3;
+}
+
+.todo-filter button{
+    margin-inline: 5px;
+    border-radius: 9px;
+    border-color: #007bff;
+    background:#fff ;
+    cursor: pointer;
+}
+
+.todo-filter button:hover{
+    background-color: #ededed;
+}
+
+.search-input {
+    padding: 1.5px 5px;
+    border-radius: 10px;
+    border-color: #007bff;
+    transition: background-color .4s;
+}
+
+.search-input:focus {
+    background-color: #007bff21;
+}
+
+.search-input:hover {
+    background-color: #ededed;
+}

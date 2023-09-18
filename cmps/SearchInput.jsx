@@ -1,8 +1,8 @@
 
 const { useSelector, useDispatch } = ReactRedux
-import { SET_SEARCH_QUERY } from '../store/store.js'
+import { SET_SEARCH_QUERY } from '../store/reducers/todo.reducer.js'
 
-export function SearchInput({searchQuery}) {
+export function SearchInput({ searchQuery }) {
     const dispatch = useDispatch()
 
     function handleSearchChange(ev) {
@@ -11,6 +11,7 @@ export function SearchInput({searchQuery}) {
 
     return (
         <input
+            className='search-input'
             type="text"
             placeholder="Search..."
             value={searchQuery}

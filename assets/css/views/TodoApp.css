@@ -1,0 +1,19 @@
+.todo-app .search-todos {
+    color: #007bff;
+}
+
+.todo-app .add-todo-btn {
+    padding: 12px 8px;
+    border-radius: 7px;
+    border: none;
+    margin-block-start: 20px;
+    
+    font-weight: 500;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.todo-app .add-todo-btn:hover {
+    background-color: #0367d3;
+}

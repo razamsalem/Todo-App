@@ -1,12 +1,12 @@
 const { useState, useEffect } = React
 const { useSelector, useDispatch } = ReactRedux
-import { SET_USER, SET_USER_PREFERENCES } from '../store/store.js'
+import { SET_USER, SET_USER_PREFERENCES } from '../store/reducers/user.reducer.js'
 import { userService } from '../services/user.service.js'
 import { TodoPreview } from '../cmps/TodoPreview.jsx'
 
 export function UserProfile() {
     const dispatch = useDispatch()
-    const loggedinUser = useSelector((storeState) => storeState.loggedinUser)
+    const loggedinUser = useSelector(storeState => storeState.userModule.loggedinUser)
 
     if (!loggedinUser) {
         return <div>You need to log in first</div>;
@@ -15,7 +15,7 @@ export function UserProfile() {
     const [isEditing, setIsEditing] = useState(false)
     const [editedFullname, setEditedFullname] = useState(loggedinUser.fullname)
     const [prefs, setPrefs] = useState(loggedinUser.prefs)
-    const todos = useSelector((storeState) => storeState.todos)
+    const todos = useSelector(storeState => storeState.todoModule.todos)
 
     useEffect(() => {
         document.body.style.color = prefs.color
@@ -40,7 +40,7 @@ export function UserProfile() {
     }
 
     return (
-        <div>
+        <div className="user-profile">
             <h3>Preferences:</h3>
             <div>
                 {isEditing ? (
@@ -84,7 +84,7 @@ export function UserProfile() {
             <button onClick={handleSaveChanges}>Save</button>
             <br />
             Your todos:
-            {console.log(todos)}
+            {/* {console.log(todos)} */}
             {todos.filter(todo => todo.owner === loggedinUser.fullname)
                 .map(todo =>
                     <li key={todo._id}>

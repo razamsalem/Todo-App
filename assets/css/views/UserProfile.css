@@ -1,14 +1,15 @@
-.todo-list-container {
-    list-style: none;
-    padding: 0;
+.user-profile {
+    text-align: center;
 }
 
-.todo-list-container li {
+
+.user-profile li {
     margin-bottom: 10px;
     padding: 10px;
     color: #007bff;
     border-radius: 5px;
     display: flex;
     justify-content: space-evenly;
+    list-style: none;
     align-items: center;
 }

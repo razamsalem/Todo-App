@@ -15,6 +15,10 @@
     margin-right: 20px;
 }
 
+.colorize {
+    color: #ffc107; 
+}
+
 .signup-suggest-area {
     color: #fff;
 }
@@ -50,7 +54,7 @@ nav a {
     transition: color 0.3s, border-bottom 0.3s;
     position: relative;
     padding-bottom: 2px;
-    padding-inline: 5px;
+    margin-inline: 5px;
 }
 
 nav a:active {
@@ -61,10 +65,11 @@ nav a.active {
     font-weight: bold;
     text-decoration: none;
     border-bottom: 2px solid #ffc107;
+    color: #ffc107;
 }
 
 nav a:not(.active):hover {
-    color: #ffc107;
+    color: #e8af05;
     border-bottom: 2px solid #ffc107;
 }
 

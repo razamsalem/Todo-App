@@ -1,11 +1,11 @@
 
 const { useSelector, useDispatch } = ReactRedux
-import { SET_FILTER, SET_SEARCH_QUERY } from '../store/store.js'
+import { SET_FILTER, SET_SEARCH_QUERY } from '../store/reducers/todo.reducer.js'
 import { SearchInput } from './SearchInput.jsx'
 
 export function TodoFilter({filter}) {
     const dispatch = useDispatch()
-    const searchQuery = useSelector(storeState => storeState.searchQuery)
+    const searchQuery = useSelector(storeState => storeState.todoModule.searchQuery)
 
     function handleFilterChange(newFilter) {
         dispatch({ type: SET_FILTER, newFilter })

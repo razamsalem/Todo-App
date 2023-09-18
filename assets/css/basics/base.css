@@ -1,8 +1,5 @@
-html {
-    font-family: 'Poppins', sans-serif;
-}
-
 body {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     text-align: center;
 }
@@ -25,4 +22,8 @@ img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
 }

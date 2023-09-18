@@ -1,7 +1,6 @@
 import { TodoPreview } from './TodoPreview.jsx'
 
 export function TodoList({ todos, filter, searchQuery, onRemoveTodo, onEditTodo, onToggleDone }) {
-    if (!todos) return <div>Loading...</div>
     if (!todos.length) return <div>No todos... it's probably a good day ⛱️</div>
 
     return (

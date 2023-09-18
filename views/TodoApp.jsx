@@ -3,8 +3,10 @@ import { todoService } from '../services/todo.service.js'
 import { TodoList } from '../cmps/TodoList.jsx'
 import { TodoFilter } from '../cmps/TodoFilter.jsx'
 
-import { ADD_TODO, REMOVE_TODO, SET_TODOS, SET_USER_BALANCE, UPDATE_TODO } from '../store/store.js'
+import { ADD_TODO, REMOVE_TODO, SET_TODOS, UPDATE_TODO } from '../store/reducers/todo.reducer.js'
+import { SET_USER_BALANCE } from '../store/reducers/user.reducer.js'
 import { userService } from '../services/user.service.js'
+import { loadTodos, removeTodo } from '../store/actions/todo.actions.js'
 
 const { Link } = ReactRouterDOM
 const { useState, useEffect } = React
@@ -12,25 +14,27 @@ const { useSelector, useDispatch } = ReactRedux
 
 export function TodoApp() {
     const dispatch = useDispatch()
-    const todos = useSelector(storeState => storeState.todos)
-    const filter = useSelector(storeState => storeState.filter)
-    const searchQuery = useSelector(storeState => storeState.searchQuery)
-    const loggedinUser = useSelector((storeState) => storeState.loggedinUser)
+    const todos = useSelector(storeState => storeState.todoModule.todos)
+    const filter = useSelector(storeState => storeState.todoModule.filter)
+    const searchQuery = useSelector(storeState => storeState.todoModule.searchQuery)
+    const loggedinUser = useSelector(storeState => storeState.userModule.loggedinUser)
+    const isLoading = useSelector(storeState => storeState.todoModule.isLoading)
 
 
     useEffect(() => {
-        todoService.query()
-            .then(todos => {
-                showSuccessMsg('Todos Reloaded successfully')
-                dispatch({ type: SET_TODOS, todos })
+        loadTodos()
+            .catch(err => {
+                console.log(err)
             })
     }, [])
 
     function onRemoveTodo(todoId) {
-        todoService.remove(todoId)
+        removeTodo(todoId)
             .then(() => {
                 showSuccessMsg('Todo removed')
-                dispatch({ type: REMOVE_TODO, todoId })
+            })
+            .catch(err => {
+                console.log(err)
             })
     }
 
@@ -92,12 +96,19 @@ export function TodoApp() {
     }
 
 
+
     return (
         <section className="todo-app">
-            <h1>Let's Do Todo</h1>
+            <h1 className='search-todos'>Search Todos</h1>
             <TodoFilter filter={filter} />
-            <button onClick={onAddTodo}>New Todo 📃</button>
-            <TodoList todos={todos} filter={filter} searchQuery={searchQuery} onEditTodo={onEditTodo} onRemoveTodo={onRemoveTodo} onToggleDone={onToggleDone} />
+            {loggedinUser
+                ? <button className='add-todo-btn' onClick={onAddTodo}>New Todo 📃</button>
+                : <div>Please login to add todos</div>
+            }
+
+            {!isLoading && <TodoList todos={todos} filter={filter} searchQuery={searchQuery} onEditTodo={onEditTodo} onRemoveTodo={onRemoveTodo} onToggleDone={onToggleDone} />}
+
+            {isLoading && <div>Loading...</div>}
         </section>
     )
 }

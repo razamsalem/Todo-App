@@ -1,6 +1,7 @@
 
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { userService } from '../services/user.service.js'
+import { login, signup } from '../store/actions/user.actions.js'
 
 const { useState } = React
 
@@ -12,7 +13,7 @@ function getEmptyCredentials() {
     }
 }
 
-export function LoginSignup({ onSetUser }) {
+export function LoginSignup() {
 
     const [credentials, setCredentials] = useState(getEmptyCredentials())
     const [isSignupState, setIsSignupState] = useState(false)
@@ -25,6 +26,25 @@ export function LoginSignup({ onSetUser }) {
 
     function onSubmit(ev) {
         ev.preventDefault()
+        
+        if (isSignupState) {
+            signup(credentials)
+                .then((user) => {
+                    showSuccessMsg(`Welcome ${user.fullname}`)
+                })
+                .catch(err => {
+                    showErrorMsg('Cannot signup')
+                })
+        } else {
+            login(credentials)
+                .then((user) => {
+                    showSuccessMsg(`Hi again ${user.fullname}`)
+                })
+                .catch(err => {
+                    showErrorMsg('Cannot login')
+                })
+        }
+
         const method = isSignupState ? 'signup' : 'login'
         return userService[method](credentials)
             .then((user) => {
@@ -32,7 +52,7 @@ export function LoginSignup({ onSetUser }) {
                 showSuccessMsg(`Welcome ${user.fullname}`)
             })
             .catch(err => {
-                showErrorMsg('OOps try again')
+                showErrorMsg('Oops try again', err)
             })
     }
 
