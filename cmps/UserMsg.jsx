@@ -8,8 +8,8 @@ export function UserMsg() {
 
   useEffect(() => {
     const unsubscribe = eventBusService.on('show-user-msg', (msg) => {
-      console.log('Got msg', msg)
       setMsg(msg)
+      // window.scrollTo({top: 0, behavior: 'smooth'});
       if (timeoutIdRef.current) {
         timeoutIdRef.current = null
         clearTimeout(timeoutIdRef.current)
@@ -26,9 +26,8 @@ export function UserMsg() {
   if (!msg) return <span></span>
   return (
     <section className={`user-msg ${msg.type}`}>
-      <button onClick={closeMsg}>x</button>
+      <button className="user-msg-btn" onClick={closeMsg}><i className="fa-solid fa-x"></i></button>
       {msg.txt}
     </section>
   )
 }
-

@@ -20,4 +20,9 @@
     font-size: .5em;
     float: right;
     margin: .5em;
+    background: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
+

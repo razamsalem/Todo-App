@@ -5,6 +5,7 @@ const { useSelector, useDispatch } = ReactRedux
 import { LoginSignup } from './LoginSignup.jsx'
 import { logout } from "../store/actions/user.actions.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { UserMsg } from './UserMsg.jsx'
 
 export function AppHeader() {
     const dispatch = useDispatch()
@@ -63,6 +64,7 @@ export function AppHeader() {
                 <NavLink to="/todo">Todo</NavLink>
                 <NavLink to="/profile">Profile</NavLink>
             </nav>
+            <UserMsg />
         </header>
     )
 }
